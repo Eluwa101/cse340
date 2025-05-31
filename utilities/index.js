@@ -61,14 +61,83 @@ Util.buildClassificationGrid =  function(data){
 }
 
 
+/**
+ * Build vehicle detail HTML components
+ * Vehicle data
+ *  HTML components for detail view
+ */
+Util.buildVehicleDetailComponents = function (v) {
+  if (!v) return { header: '', details: '', cta: '' }
+
+  const nf = n => new Intl.NumberFormat('en-US').format(n)
+  const price = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(v.inv_price)
+
+  const fields = [
+    { label: 'Make', value: v.inv_make || 'N/A' },
+    { label: 'Model', value: v.inv_model || 'N/A' },
+    { label: 'Year', value: v.inv_year || 'N/A' },
+    { label: 'Price', value: price },
+    { label: 'Mileage', value: v.inv_miles ? `${nf(v.inv_miles)} miles` : 'N/A' },
+    { label: 'Classification', value: v.classification_name || 'N/A' },
+    { label: 'Color', value: v.inv_color || 'N/A' },
+  ]
+
+  return {
+    header: `
+      <nav class="back-link">
+        <a href="/inv/type/${v.classification_id}" aria-label="Back to ${v.classification_name} inventory">&larr; Back to ${v.classification_name}</a>
+      </nav>
+      <header class="vehicle-header">
+        <h1>${v.inv_year ? v.inv_year + ' ' : ''}${v.inv_make} ${v.inv_model}</h1>
+        <p class="year-price"><span>${price}</span></p>
+      </header>
+    `,
+
+    details: `
+      <section class="vehicle-details-section">
+        <div class="vehicle-gallery">
+          <img src="${v.inv_image}" alt="Image of ${v.inv_make} ${v.inv_model}" class="main-image" loading="lazy">
+          <div class="thumbnail">
+            <img src="${v.inv_thumbnail}" alt="Thumbnail of ${v.inv_make} ${v.inv_model}" loading="lazy">
+          </div>
+        </div>
+        <div class="vehicle-specs">
+          <h2>Vehicle Details</h2>
+          <ul>
+            ${fields.map(f => `<li><strong>${f.label}:</strong> ${f.value}</li>`).join('')}
+          </ul>
+          <h3>Description</h3>
+          <p>${v.inv_description || 'No description available.'}</p>
+        </div>
+      </section>
+    `,
+
+    cta: `
+      <div class="cta">
+        <a href="/contact?vehicle=${encodeURIComponent(v.inv_make + ' ' + v.inv_model)}" class="btn" aria-label="Contact us about ${v.inv_make} ${v.inv_model}">Contact Us About This Vehicle</a>
+      </div>
+    `
+  }
+}
+
+
+module.exports = Util;
+
+
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 
  * General Error Handling
  **************************************** */
+
+
+
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
 
 
 module.exports = Util
 
 module.exports.buildClassificationGrid = Util.buildClassificationGrid
+module.exports.buildVehicleDetailComponents = Util.buildVehicleDetailComponents
+module.exports.getNav = Util.getNav
