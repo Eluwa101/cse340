@@ -4,4 +4,7 @@ let month = d.toLocaleString('default', { month: 'long' })
 let day = d.getDate() %>
 <footer>
     <p class="copyright">&copy; <%= month %> <%= day %>, <%= year %> - CSE 340 App</p>
+    <div class="error-test-link">
+        <a href="/trigger-error">Test Error Handling</a>
+    </div>
 </footer>

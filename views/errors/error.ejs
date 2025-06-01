@@ -1,6 +1,14 @@
-<h1>Error</h1>
-<% if (message) { %>
-    <p><%= message %></p>
-<% } else { %>
-    <p>OopS! An unexpected error has occurred.</p>
-<% } %>
+
+<main class="error-page">
+  <section>
+    <h1>🚨 Error: <%= title || "Error" %></h1>
+
+    <% if (message) { %>
+      <p><%= message %></p>
+    <% } else { %>
+      <p>Oops! An unexpected error has occurred.</p>
+    <% } %>
+
+    <a href="/" class="button">Return Home</a>
+  </section>
+</main>

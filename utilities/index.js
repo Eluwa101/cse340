@@ -120,9 +120,29 @@ Util.buildVehicleDetailComponents = function (v) {
   }
 }
 
-
 module.exports = Util;
 
+// Intentional error handling middleware for the footer
+Util.handleErrors = (err, req, res, next) => {
+  console.error('Error:', err.message);
+  res.status(500).render('errors/error', {
+    title: 'Server Error',
+    message: err.message,
+    nav: req.nav || '',  // Make sure nav is available
+    body: `            // <-- Add this body content
+      <main class="error-view">
+        <h1>Server Error</h1>
+        <div class="alert alert-danger">
+          <p>${err.message}</p>
+          <p>Status: 500</p>
+        </div>
+        <div class="error-actions">
+          <a href="/" class="btn">Return Home</a>
+        </div>
+      </main>
+    `
+  });
+};
 
 
 /* ****************************************
@@ -130,8 +150,6 @@ module.exports = Util;
  * Wrap other function in this for 
  * General Error Handling
  **************************************** */
-
-
 
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
 

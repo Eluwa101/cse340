@@ -9,11 +9,13 @@ const express = require("express")
 const expressLayouts = require("express-ejs-layouts")
 const env = require("dotenv").config()
 const app = express()
+exports.app = app
 const static = require("./routes/static")
 const baseController = require("./controllers/baseController")
 const inventoryRoutes = require("./routes/inventoryRoutes")
-const utilities = require("./utilities/index")
-
+const utilities = require("./utilities/")
+const database = require("./database/")
+const errorRoutes = require("./routes/errorRoute")
 /* ***********************
  * View Engine and Templates
  *************************/
@@ -26,11 +28,31 @@ app.set("layout", "./layouts/layout")
  *************************/
 app.use(express.static("public"))
 
+
 // Index route
 app.get("/", utilities.handleErrors(baseController.buildHome))
 
 // Inventory routes
-app.use("/inv", inventoryRoutes)
+app.use("/inv", utilities.handleErrors( inventoryRoutes))
+
+
+// app.use((err, req, res, next) => {
+//     utilities.handleErrors(err, req, res, next);
+// });
+
+
+// Generic error handler for internal server errors
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).render('error', {
+    title: 'Something went wrong!',
+    message: err.message || 'Internal Server Error',
+  });
+});
+
+// Intentionally trigger a server error for testing
+app.use('/', errorRoutes);
+
 
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
@@ -38,10 +60,12 @@ app.use(async (req, res, next) => {
 })
 
 
+
+
 /* ***********************
 * Express Error Handler
 * Place after all other middleware
-*************************/
+// *************************/
 app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav()
   console.error(`Error at: "${req.originalUrl}": ${err.message}`)
