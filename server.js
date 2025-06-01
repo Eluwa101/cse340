@@ -16,6 +16,35 @@ const inventoryRoutes = require("./routes/inventoryRoutes")
 const utilities = require("./utilities/")
 const database = require("./database/")
 const errorRoutes = require("./routes/errorRoute")
+const session = require("express-session")
+const pool = require('./database/')
+
+
+
+/* ***********************
+ * Session Middleware Function
+ *************************/
+ app.use(session({
+  store: new (require('connect-pg-simple')(session))({
+    createTableIfMissing: true,
+    pool,
+  }),
+  secret: process.env.SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true,
+  name: 'sessionId',
+}))
+
+
+//exprress messages Middleware
+app.use(require('connect-flash')())
+app.use(function(req, res, next) {
+  res.locals.messages = require('express-messages')(req, res)
+  next()
+})
+
+
+
 /* ***********************
  * View Engine and Templates
  *************************/
@@ -34,6 +63,10 @@ app.get("/", utilities.handleErrors(baseController.buildHome))
 
 // Inventory routes
 app.use("/inv", utilities.handleErrors( inventoryRoutes))
+
+//Account routes
+const accountRoute = require("./routes/accountRoute")
+app.use("/account", utilities.handleErrors(accountRoute))
 
 
 // app.use((err, req, res, next) => {

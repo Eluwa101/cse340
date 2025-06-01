@@ -490,3 +490,67 @@ footer p {
   }
 }
 
+/* Notice styling */
+.notice{
+  background-color: #ffeb3b;
+  color: #000;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+
+/* Login Page Styles */
+.login-page{
+  max-width: 400px;
+  margin: auto;
+  padding: .05px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.login-page h1 {
+  text-align: center;
+}
+
+.flash-message {
+  background-color: #ffdddd;
+  color: transparent;
+  text-align: center;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form label {
+  margin-bottom: 5px;
+}
+
+.login-form input {
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.login-form button {
+  padding: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 20px;
+}

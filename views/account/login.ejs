@@ -1,0 +1,27 @@
+<main class="login-page">
+  <h1><%= title %></h1>
+
+  <!-- Flash Message -->
+  <% if (typeof message !== "undefined") { %>
+    <div class="flash-message">
+      <p><%= message %></p>
+    </div>
+  <% } %>
+
+  <!-- Login Form And Link To Regiister-->
+  <form action="/account/login" method="post" class="login-form">
+    <label for="email">Email Address</label>
+    <input type="email" name="Account_email" id="email" required />
+
+    <label for="password">Password</label>
+    <input type="password" name="account_password" id="password" required />
+
+    <button type="submit">Login</button>
+  </form>
+
+  <p class="register-link">
+    Don't have an account?
+    <a href="/account/register"><strong>Click ✅ to register</strong></a>
+  </p>
+</main>
+
