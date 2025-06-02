@@ -10,17 +10,29 @@
 
   <!-- Account Registration Form -->
   <form action="/account/register" method="post" class="register-form">
-    <label for="firstname">First Name</label>
+    <label for="firstname">First Name *</label>
     <input type="text" name="account_firstname" id="firstname" required />
-  
-    <label for="lastname">Last Name</label>
+
+    <label for="lastname">Last Name *</label>
     <input type="text" name="account_lastname" id="lastname" required />
 
-    <label for="email">Email Address</label>
+    <label for="email">Email Address *</label>
     <input type="email" name="account_email" id="email" required />
 
-    <label for="password">Password</label>
-    <input type="password" name="account_password" id="password" required />
+    <label for="password">Password *</label>
+    <div class="password-wrapper">
+      <input
+        type="password" name="account_password" id="password" required
+        pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+={}\[\]:;'<>,.?~\\/-]).{12,}$"
+        title="Password must be at least 12 characters, include 1 capital letter, 1 number, and 1 special character."/>
+      <button type="button" id="togglePassword" aria-label="Toggle password visibility">👁️‍🗨️</button>
+    </div>
+
+    <p class="password-rules">
+      <small>
+        Password must be at least 12 characters long, contain at least 1 capital letter, 1 number, and 1 special character.
+      </small>
+    </p>
 
     <button type="submit">Register</button>
   </form>
@@ -29,3 +41,16 @@
     Already have an account?
     <a href="/account/login"><strong>Click ✅ to login</strong></a>
   </p>
+</main>
+
+<script>
+  // Toggle password visibility
+  const togglePassword = document.getElementById("togglePassword");
+  const passwordField = document.getElementById("password");
+
+  togglePassword.addEventListener("click", () => {
+    const type = passwordField.type === "password" ? "text" : "password";
+    passwordField.type = type;
+    togglePassword.textContent = type === "password" ? "👁️‍🗨️" : "🕶️";
+  });
+</script>

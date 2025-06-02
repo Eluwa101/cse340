@@ -502,46 +502,80 @@ footer p {
 
 
 /* Form Page Styles */
-.login-page, .register-form{
+
+.login-page,
+.register-page {
   max-width: 400px;
   margin: auto;
-  padding: .05px;
+  padding: 20px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 8px;
   background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
 }
 
-.login-page h1,.register-form h1 {
+.login-page h1,
+.register-page h1 {
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .flash-message {
-  background-color: #ffdddd;
-  color: transparent;
+  background-color: #ffffff;
+  color: rgb(255, 255, 255);
   text-align: center;
   padding: 10px;
   margin-bottom: 20px;
-  border: 1px solid transparent;
+  border: 1px solid rgb(255, 254, 254);
   border-radius: 5px;
 }
 
-.login-form,.register-form {
+.login-form,
+.register-form {
   display: flex;
   flex-direction: column;
 }
 
-.login-form,.register-form label {
+.login-form label,
+.register-form label {
   margin-bottom: 5px;
+  font-weight: bold;
 }
 
-.login-form input,.register-form input {
+.login-form input,
+.register-form input {
   margin-bottom: 15px;
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
 }
 
-.login-form button,.register-form button {
+.password-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.password-wrapper input {
+  flex: 1;
+}
+
+.password-wrapper button {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.password-rules {
+  margin-top: -10px;
+  margin-bottom: 15px;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.login-form button,
+.register-form button {
   padding: 10px;
   background-color: #28a745;
   color: white;
@@ -550,7 +584,13 @@ footer p {
   cursor: pointer;
 }
 
-.register-link, .login-link {
+.login-form button:hover,
+.register-form button:hover {
+  background-color: #218838;
+}
+
+.register-link,
+.login-link {
   text-align: center;
   margin-top: 20px;
 }
