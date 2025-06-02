@@ -10,4 +10,7 @@ const utilities = require("../utilities/");
 /*deliver login view*/
 router.get("/login", utilities.handleErrors(accountController.buildLogin));
 
+/*deliver register view*/
+router.get("/register", utilities.handleErrors(accountController.buildRegister));
+
 module.exports = router;

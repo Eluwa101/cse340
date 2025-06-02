@@ -501,8 +501,8 @@ footer p {
 }
 
 
-/* Login Page Styles */
-.login-page{
+/* Form Page Styles */
+.login-page, .register-form{
   max-width: 400px;
   margin: auto;
   padding: .05px;
@@ -511,7 +511,7 @@ footer p {
   background-color: #f9f9f9;
 }
 
-.login-page h1 {
+.login-page h1,.register-form h1 {
   text-align: center;
 }
 
@@ -525,23 +525,23 @@ footer p {
   border-radius: 5px;
 }
 
-.login-form {
+.login-form,.register-form {
   display: flex;
   flex-direction: column;
 }
 
-.login-form label {
+.login-form,.register-form label {
   margin-bottom: 5px;
 }
 
-.login-form input {
+.login-form input,.register-form input {
   margin-bottom: 15px;
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
 }
 
-.login-form button {
+.login-form button,.register-form button {
   padding: 10px;
   background-color: #28a745;
   color: white;
@@ -550,7 +550,7 @@ footer p {
   cursor: pointer;
 }
 
-.register-link {
+.register-link, .login-link {
   text-align: center;
   margin-top: 20px;
 }

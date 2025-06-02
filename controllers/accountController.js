@@ -18,7 +18,18 @@ res.render("account/login", {
 })
 }
 
+/********  
+ * Build register view
+ * ************************** */
+async function buildRegister(req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("account/register", {
+    title: "Register",
+    message: req.flash("notice"),
+    nav,
+  })}
+
 // Export the accountController's function
-module.exports = { buildLogin }
+module.exports = { buildLogin, buildRegister };
 
 
