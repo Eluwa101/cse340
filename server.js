@@ -18,6 +18,8 @@ const database = require("./database/")
 const errorRoutes = require("./routes/errorRoute")
 const session = require("express-session")
 const pool = require('./database/')
+const bodyParser = require("body-parser")
+
 
 
 
@@ -34,6 +36,10 @@ const pool = require('./database/')
   saveUninitialized: true,
   name: 'sessionId',
 }))
+
+//body-parser middleware
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
 
 
 //exprress messages Middleware
@@ -68,6 +74,8 @@ app.use("/inv", utilities.handleErrors( inventoryRoutes))
 const accountRoute = require("./routes/accountRoute")
 app.use("/account", utilities.handleErrors(accountRoute))
 
+//Management Inventory routes
+// app.use("/inv", inventoryRoutes);
 
 // app.use((err, req, res, next) => {
 //     utilities.handleErrors(err, req, res, next);

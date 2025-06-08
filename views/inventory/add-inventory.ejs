@@ -1,0 +1,64 @@
+<%- include('../partials/header') %>
+
+<h1>Add New Vehicle</h1>
+
+<!-- Display flash message (success/failure) -->
+<% if (message) { %>
+  <div class="flash-message"><%= message %></div>
+<% } %>
+
+<!-- Display validation errors -->
+<% if (errors && errors.length > 0) { %>
+  <ul class="error-messages">
+    <% errors.forEach(error => { %>
+      <li><%= error.msg %></li>
+    <% }) %>
+  </ul>
+<% } %>
+
+<!-- Form to add new vehicle -->
+<form action="/inv/add-inventory" method="POST" novalidate>
+
+  <!-- Classification dropdown: classificationList is passed from controller -->
+  <%- classificationList %>
+
+  <!-- Sticky input fields: retain entered values if validation fails -->
+  <label for="inv_make">Make</label>
+  <input type="text" id="inv_make" name="inv_make" required
+    value="<%= inv_make ? inv_make : '' %>">
+
+  <label for="inv_model">Model</label>
+  <input type="text" id="inv_model" name="inv_model" required
+    value="<%= inv_model ? inv_model : '' %>">
+
+  <label for="inv_year">Year</label>
+  <input type="number" id="inv_year" name="inv_year" min="1900" max="2099" required
+    value="<%= inv_year ? inv_year : '' %>">
+
+  <label for="inv_description">Description</label>
+  <textarea id="inv_description" name="inv_description" required><%= inv_description ? inv_description : '' %></textarea>
+
+  <label for="inv_price">Price</label>
+  <input type="number" step="0.01" id="inv_price" name="inv_price" required
+    value="<%= inv_price ? inv_price : '' %>">
+
+  <label for="inv_miles">Miles</label>
+  <input type="number" id="inv_miles" name="inv_miles" required
+    value="<%= inv_miles ? inv_miles : '' %>">
+
+  <label for="inv_color">Color</label>
+  <input type="text" id="inv_color" name="inv_color" required
+    value="<%= inv_color ? inv_color : '' %>">
+
+  <label for="inv_image">Image Path</label>
+  <input type="text" id="inv_image" name="inv_image"
+    value="<%= inv_image ? inv_image : '/images/no-image.png' %>">
+
+  <label for="inv_thumbnail">Thumbnail Path</label>
+  <input type="text" id="inv_thumbnail" name="inv_thumbnail"
+    value="<%= inv_thumbnail ? inv_thumbnail : '/images/no-image-tn.png' %>">
+
+  <button type="submit">Add Vehicle</button>
+</form>
+
+<%- include('../partials/footer') %>

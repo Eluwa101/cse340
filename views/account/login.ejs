@@ -8,14 +8,32 @@
     </div>
   <% } %>
 
+<% if (errors) { %>
+<ul class="notice">
+<% errors.array().forEach(error => { %>
+<li><%= error.msg %></li>
+<% }) %>
+</ul>
+<% } %>
+
+
   <!-- Login Form And Link To Regiister-->
   <form action="/account/login" method="post" class="login-form">
     <label for="email">Email Address</label>
-    <input type="email" name="Account_email" id="email" required />
+    <input type="email" name="Account_email" id="email" required value="<%= locals.account_email %>" />
 
     <label for="password">Password</label>
-    <input type="password" name="account_password" id="password" required />
-
+      <input
+      type="password"
+      name="account_password"
+      id="password"
+      required
+      minlength="12"
+      pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
+      title="Password must be at least 12 characters, include 1 uppercase letter, 1 number, and 1 special character."
+      autocomplete="new-password"
+      aria-describedby="passwordHelp"
+      />
     <button type="submit">Login</button>
   </form>
 

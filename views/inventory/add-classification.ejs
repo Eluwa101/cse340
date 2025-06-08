@@ -1,0 +1,54 @@
+
+<!--This file contains the HTML code for the add-classification -->
+<%- include('../partials/header') %>
+  <title>Add New Classification | CSE Motors</title>
+
+  <script>
+    function validateForm() {
+      const input = document.getElementById("classification_name").value;
+      const pattern = /^[A-Za-z0-9]+$/;
+      if (!pattern.test(input)) {
+        alert("Classification name must not contain spaces or special characters.");
+        return false;
+      }
+      return true;
+    }
+  </script>
+</head>
+<body>
+  <%- include('../partials/nav') %>
+
+  <main>
+    <h1>Add New Classification</h1>
+
+    <% if (errors && errors.length > 0) { %>
+      <div class="error-box">
+        <ul>
+          <% errors.forEach(error => { %>
+            <li><%= error.msg %></li>
+          <% }); %>
+        </ul>
+      </div>
+    <% } %>
+
+    <% if (message) { %>
+      <div class="flash-message"><%= message %></div>
+    <% } %>
+
+    <form action="/inv/add-classification" method="POST" onsubmit="return validateForm();">
+      <label for="classification_name">Classification Name</label>
+      <input
+        type="text"
+        id="classification_name"
+        name="classification_name"
+        required
+        pattern="^[A-Za-z0-9]+$"
+        title="No spaces or special characters allowed"
+      />
+      <button type="submit">Add Classification</button>
+    </form>
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+

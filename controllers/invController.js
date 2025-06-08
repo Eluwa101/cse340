@@ -51,6 +51,64 @@ invCont.buildDetailView = async function (req, res, next) {
   }
 };
 
-  
+
+
+/* ***************************
+ *  Build management inventory view
+ * ************************** */
+invCont.buildManagementView = async function (req, res, next) {
+  const data = await invModel.getInventory()
+  const grid = await utilities.buildManagementGrid(data)
+  let nav = await utilities.getNav()
+  res.render("./inventory/management", {
+    title: "Management",
+    nav,
+    grid,
+  })
+}
+
+
+// // Render add-classification form
+// export const buildAddClassificationView = (req, res) => {
+//   const message = req.flash("message");
+//   res.render("inventory/add-classification", {
+//     title: "Add New Classification",
+//     errors: null,
+//     message: message.length ? message[0] : null,
+//   });
+// };
+
+// // Handle classification insert
+// export const addClassification = async (req, res) => {
+//   const { classification_name } = req.body;
+
+//   const errors = req.validationErrors;
+//   if (errors && errors.length > 0) {
+//     return res.render("inventory/add-classification", {
+//       title: "Add New Classification",
+//       errors,
+//       message: null,
+//     });
+//   }
+
+//   try {
+//     const result = await invModel.insertClassification(classification_name);
+//     if (result) {
+//       // Rebuild nav (could be a helperfunction)
+//       const nav = await utilities.getNav();
+//       req.flash("message", "Classification added successfully.");
+//       return res.redirect("/inv");
+//     }
+//     throw new Error("Insert failed");
+//   } catch (error) {
+//     console.error("Error adding classification:", error);
+//     return res.render("inventory/add-classification", {
+//       title: "Add New Classification",
+//       message: "Failed to add classification. Please try again.",
+//       errors: [],
+//     });
+//   }
+// };
+
 
 module.exports = invCont

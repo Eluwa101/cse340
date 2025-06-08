@@ -38,7 +38,7 @@ Util.buildClassificationGrid =  function(data){
       grid += '<li>'
       grid +=  '<a href="../../inv/detail/'+ vehicle.inv_id 
       + '" title="View ' + vehicle.inv_make + ' '+ vehicle.inv_model 
-      + 'details"><img src="' + vehicle.inv_thumbnail 
+      + ' details"><img src="' + vehicle.inv_thumbnail 
       +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
       +' on CSE Motors" /></a>'
       grid += '<div class="namePrice">'
@@ -128,8 +128,8 @@ Util.handleErrors = (err, req, res, next) => {
   res.status(500).render('errors/error', {
     title: 'Server Error',
     message: err.message,
-    nav: req.nav || '',  // Make sure nav is available
-    body: `            // <-- Add this body content
+    nav: req.nav || '',
+    body: `
       <main class="error-view">
         <h1>Server Error</h1>
         <div class="alert alert-danger">
